@@ -1,4 +1,5 @@
 import json
+import random
 from sys import exit
 from requests import get
 from models import Article, Comment
@@ -15,11 +16,11 @@ class GloboHelper:
         'glbuid': 'XRLsZji9UfcMJHlyOD2wfVEME8NlXALkx3uwD57YWT8=',
     }
 
-    @staticmethod
-    def get_articles():
+    @classmethod
+    def get_articles(cls):
         response = get(
             'http://falkor-cda.bastian.globo.com/feeds/b904b430-123a-4f93-8cf4-5365adf97892/posts/ssi',
-            headers=GloboHelper.DEFAULT_HEADERS
+            headers=cls.DEFAULT_HEADERS
         )
 
         json_response = response.json()
@@ -29,8 +30,22 @@ class GloboHelper:
 
         return Article.initializeFromList(json_response['items'])
 
-    @staticmethod
-    def get_popular_comments_from_article(article):
+    @classmethod
+    def get_random_article(cls):
+        articles = cls.get_articles()
+        return random.choice(articles) if articles is not None else None
+
+    @classmethod
+    def get_random_comment(cls):
+        article = cls.get_random_article()
+        comments = cls.get_popular_comments_from_article(article)
+        return random.choice(comments) if comments is not None else None
+
+    @classmethod
+    def get_popular_comments_from_article(cls, article):
+
+        if article is None:
+            return None
 
         response = get(
             '/'.join((
@@ -40,7 +55,7 @@ class GloboHelper:
                 article.url_for_request,
                 'shorturl/titlef/populares/1.json',
             )),
-            headers=GloboHelper.DEFAULT_HEADERS
+            headers=cls.DEFAULT_HEADERS
         )
 
         # Remove function name and last parenteses
@@ -50,12 +65,12 @@ class GloboHelper:
         if json_response is None or not 'itens' in json_response:
             return None
 
-        return Comment.initializeFromList(json_response['itens'])
+        return Comment.initializeFromList(json_response['itens'], article)
 
-    @staticmethod
-    def get_html_content_for_article(article):
+    @classmethod
+    def get_html_content_for_article(cls, article):
         response = get(
             article.url,
-            headers=GloboHelper.DEFAULT_HEADERS
+            headers=cls.DEFAULT_HEADERS
         )
         return response.text

@@ -43,8 +43,8 @@ class Article:
     def url_for_request(self):
         return self.url.replace("/", '@@')
 
-    @staticmethod
-    def initializeFromList(article_list):
+    @classmethod
+    def initializeFromList(cls, article_list):
         filtered = list(filter(lambda article: article['content'], article_list))
         return list(map(lambda article: Article(article['id'],
                                                 article['content']['title'],
@@ -52,17 +52,19 @@ class Article:
                                         filtered))
 
 class Comment:
-    def __init__(self, text, upvotes_value, downvotes_value, author_name):
+    def __init__(self, text, upvotes_value, downvotes_value, author_name, article):
         self.text = text
         self.upvotes_value = upvotes_value # Deprecated
         self.downvotes_value = downvotes_value # Deprecated
         self.author_name = author_name
+        self.article = article
 
-    @staticmethod
-    def initializeFromList(comment_list):
+    @classmethod
+    def initializeFromList(cls, comment_list, article):
         filtered = list(filter(lambda comment: comment['texto'], comment_list))
         return list(map(lambda comment: Comment(comment['texto'],
                                                 comment['VotosThumbsUp'],
                                                 comment['VotosThumbsDown'],
-                                                comment['Usuario']['nomeFormatado']),
+                                                comment['Usuario']['nomeFormatado'],
+                                                article),
                                         filtered))

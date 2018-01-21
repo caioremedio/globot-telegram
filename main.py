@@ -2,13 +2,13 @@
 
 import os
 import models
-import decoders
-from globo_helper import GloboHelper
+from telegram_bot_helper import TelegramBotHelper
 
 def main():
-    articles = GloboHelper.get_articles()
-    print(GloboHelper.get_popular_comments_from_article(articles[0])[0].author_name)
-    print(articles[0].id_for_request)
+    TelegramBotHelper.start_polling()
+    # articles = GloboHelper.get_articles()
+    # print(GloboHelper.get_popular_comments_from_article(articles[0])[0].author_name)
+    # print(articles[0].id_for_request)
 
 if __name__ == '__main__':
     main()
