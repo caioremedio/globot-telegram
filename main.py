@@ -14,7 +14,7 @@ def teste():
 
 @app.route('/')
 def index():
-    TelegramBotHelper.start_polling()
+    # TelegramBotHelper.start_polling()
     return "It Works!"
 
 

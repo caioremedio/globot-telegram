@@ -59,7 +59,7 @@ O usuário *$comment_author_name* comentou:
         )
 
     @classmethod
-    def start_polling(cls):
+    def setup_webhooks(cls):
         cls.setupCommandHandlers()
         cls.updater.start_webhook(
             listen="0.0.0.0",
