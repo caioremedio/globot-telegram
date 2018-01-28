@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route(f"/{os.environ['TELEGRAM_BOT_TOKEN']}", methods=['POST'])
 def telegram_bot_post():
-    pprint(request.form)
+    pprint(request.request.form)
     return "oi"
 
 @app.route('/')
