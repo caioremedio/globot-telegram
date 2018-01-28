@@ -3,12 +3,15 @@
 import os
 import models
 from telegram_bot_helper import TelegramBotHelper
+from flask import Flask
 
-def main():
-    TelegramBotHelper.start_polling()
-    # articles = GloboHelper.get_articles()
-    # print(GloboHelper.get_popular_comments_from_article(articles[0])[0].author_name)
-    # print(articles[0].id_for_request)
+# Create flask app
+app = Flask(__name__)
 
-if __name__ == '__main__':
-    main()
+@app.route(f"/{os.environ['TELEGRAM_BOT_TOKEN']}")
+def teste():
+    return "oi"
+
+
+# if __name__ == '__main__':
+    # create_app()

@@ -17,9 +17,9 @@ class GloboHelper:
     }
 
     @classmethod
-    def get_articles(cls):
+    def get_articles(cls, request_type_id):
         response = get(
-            'http://falkor-cda.bastian.globo.com/feeds/b904b430-123a-4f93-8cf4-5365adf97892/posts/ssi',
+            f"http://falkor-cda.bastian.globo.com/feeds/{request_type_id}/posts/ssi",
             headers=cls.DEFAULT_HEADERS
         )
 
@@ -36,15 +36,18 @@ class GloboHelper:
         return random.choice(articles) if articles is not None else None
 
     @classmethod
-    def get_random_comment(cls):
-        article = cls.get_random_article()
-        comments = cls.get_popular_comments_from_article(article)
-        return random.choice(comments) if comments is not None else None
+    def get_random_comment_for_request_type(cls, request_type_id):
+        articles = cls.get_articles(request_type_id)
+        while True:
+            article = random.choice(articles)
+            comments = cls.get_popular_comments_from_article(article)
+            if comments is not None and comments:
+                return random.choice(comments)
 
     @classmethod
     def get_popular_comments_from_article(cls, article):
 
-        if article is None:
+        if article is None or article.id_for_request is None:
             return None
 
         response = get(
@@ -74,3 +77,8 @@ class GloboHelper:
             headers=cls.DEFAULT_HEADERS
         )
         return response.text
+
+class RequestCityType:
+    TYPE_HOME_ID = 'b904b430-123a-4f93-8cf4-5365adf97892'
+    TYPE_SP_ID = '6dc3ec71-7aa8-4d92-8728-6d0a29d41671'
+    TYPE_RJ_ID = ''

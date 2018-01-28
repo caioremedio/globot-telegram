@@ -32,7 +32,12 @@ class Article:
         html_text = GloboHelper.get_html_content_for_article(self)
 
         soup = BeautifulSoup(html_text, 'html.parser')
-        attributes = soup.find(class_='multicontent').attrs
+        attributes = soup.find(class_='multicontent')
+
+        if attributes is None:
+            return None
+
+        attributes = attributes.attrs
 
         if attributes is None or 'data-content-id' not in attributes:
             return None
