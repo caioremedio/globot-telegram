@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route(f"/{os.environ['TELEGRAM_BOT_TOKEN']}")
 def teste():
+    TelegramBotHelper.start_polling()
     return "oi"
 
 @app.route('/')
