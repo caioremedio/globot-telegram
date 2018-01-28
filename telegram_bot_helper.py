@@ -63,7 +63,7 @@ O usuário *$comment_author_name* comentou:
         cls.setupCommandHandlers()
         cls.updater.start_webhook(
             listen="0.0.0.0",
-            port=PORT,
+            port=cls.PORT,
             url_path=os.environ['TELEGRAM_BOT_TOKEN'])
         cls.updater.bot.set_webhook(f"{os.environ['APP_URL']}/{os.environ['TELEGRAM_BOT_TOKEN']}")
         cls.updater.idle()
