@@ -72,7 +72,7 @@ O usuário *$comment_author_name* comentou:
     @classmethod
     def handle_request_json(cls, json):
         update = Update.de_json(json, cls.updater.bot)
-        cls.dispatcher.processUpdate(update)
+        cls.dispatcher.get_instance().processUpdate(update)
 
     @classmethod
     def setupCommandHandlers(cls):
