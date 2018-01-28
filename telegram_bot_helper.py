@@ -2,6 +2,7 @@ import logging
 import os
 from string import Template
 from telegram.ext import Updater, CommandHandler
+from telegram.update import Update
 from globo_helper import GloboHelper, RequestCityType
 
 class TelegramBotHelper:
@@ -67,6 +68,11 @@ O usuário *$comment_author_name* comentou:
             url_path=os.environ['TELEGRAM_BOT_TOKEN'])
         cls.updater.bot.set_webhook(f"{os.environ['APP_URL']}/{os.environ['TELEGRAM_BOT_TOKEN']}")
         cls.updater.idle()
+
+    @classmethod
+    def handle_request_json(cls, json):
+        update = Update.de_json(json, cls.updater.bot)
+        cls.dispatcher.processUpdate(update)
 
     @classmethod
     def setupCommandHandlers(cls):
