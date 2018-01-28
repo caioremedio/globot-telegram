@@ -42,7 +42,7 @@ O usuário *$comment_author_name* comentou:
     @classmethod
     def send_message_with_comment(cls, bot, update, comment):
         pprint("====================")
-        pprint(update)
+        print(update)
         pprint("====================")
         bot.send_message(
             chat_id=update.message.chat_id,
