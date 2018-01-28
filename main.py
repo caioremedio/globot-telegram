@@ -12,6 +12,10 @@ app = Flask(__name__)
 def teste():
     return "oi"
 
+@app.route('/')
+def index():
+    return "It Works!"
+
 
 # if __name__ == '__main__':
     # create_app()
