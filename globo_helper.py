@@ -81,4 +81,4 @@ class GloboHelper:
 class RequestCityType:
     TYPE_HOME_ID = 'b904b430-123a-4f93-8cf4-5365adf97892'
     TYPE_SP_ID = '6dc3ec71-7aa8-4d92-8728-6d0a29d41671'
-    TYPE_RJ_ID = ''
+    TYPE_RJ_ID = '12187edd-bf57-47df-ab7a-b100e2cb96ef'

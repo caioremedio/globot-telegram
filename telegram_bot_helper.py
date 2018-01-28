@@ -1,5 +1,6 @@
 import logging
 import os
+from pprint import pprint
 from string import Template
 from telegram.ext import Updater, CommandHandler
 from telegram.update import Update
@@ -26,29 +27,23 @@ O usuário *$comment_author_name* comentou:
     @classmethod
     def command_comentario_home(cls, bot, update):
         comment = GloboHelper.get_random_comment_for_request_type(RequestCityType.TYPE_HOME_ID)
-
-        print("====================")
-        print(update)
-        print("====================")
-
         cls.send_message_with_comment(bot, update, comment)
 
     @classmethod
     def command_comentario_sp(cls, bot, update):
         comment = GloboHelper.get_random_comment_for_request_type(RequestCityType.TYPE_SP_ID)
-
-        print("====================")
-        print(update)
-        print("====================")
-
         cls.send_message_with_comment(bot, update, comment)
 
     @classmethod
     def command_comentario_rj(cls, bot, update):
-        bot.send_message(chat_id=update.message.chat_id, text="Em breve...")
+        comment = GloboHelper.get_random_comment_for_request_type(RequestCityType.TYPE_RJ_ID)
+        cls.send_message_with_comment(bot, update, comment)
 
     @classmethod
     def send_message_with_comment(cls, bot, update, comment):
+        pprint("====================")
+        pprint(update)
+        pprint("====================")
         bot.send_message(
             chat_id=update.message.chat_id,
             text=cls.response_template.substitute(

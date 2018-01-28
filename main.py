@@ -13,13 +13,8 @@ app = Flask(__name__)
 def telegram_bot_post():
     TelegramBotHelper.setupCommandHandlers()
     TelegramBotHelper.handle_request_json(request.get_json(force=True))
-    return "oi"
+    return "ata"
 
 @app.route('/')
 def index():
-    # TelegramBotHelper.start_polling()
     return "It Works!"
-
-
-# if __name__ == '__main__':
-    # create_app()
