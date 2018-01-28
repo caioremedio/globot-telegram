@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 
 import os
-import pprint
+from pprint import pprint
 # import models
 from telegram_bot_helper import TelegramBotHelper
-from flask import Flask
-from flask import request
+from flask import Flask, request
 
 # Create flask app
 app = Flask(__name__)
@@ -13,7 +12,6 @@ app = Flask(__name__)
 @app.route(f"/{os.environ['TELEGRAM_BOT_TOKEN']}", methods=['POST'])
 def telegram_bot_post():
     pprint(request.form)
-    pprint(request.form['sdjkufhuisd'])
     return "oi"
 
 @app.route('/')
